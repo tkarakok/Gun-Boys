@@ -79,20 +79,29 @@ public class CharacterController : MonoBehaviour
     {
         _health -= damage;
         UpdateHealthBar();
-        Debug.Log(transform.name + _health);
         if (_health <= Min_Health)
         {
-            // game over 
+             if (characterType == CharacterType.player)
+             {
+                 EventManager.Instance.GameOver();
+             }else
+             {
+                 GameManager.Instance.MinusEnemy();
+             }
         }
     }
 
 
     IEnumerator StartFireForEnemyType()
     {
-        while (true)
-        {
-            yield return new WaitForSeconds(.75f);
-            Fire(BulletPoolManager.Instance.GetBullet());
-        }
+       while (true)
+       {
+           if (StateManager.Instance.State == State.InGame)
+           {
+               Fire(BulletPoolManager.Instance.GetBullet());
+               
+           }
+           yield return new WaitForSeconds(.75f);
+       }
     }
 }

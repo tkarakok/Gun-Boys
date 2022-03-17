@@ -23,22 +23,28 @@ namespace PathCreation.Examples
 
         void Update()
         {
-            if (pathCreator != null && _characterType == CharacterType.player)
+            if (StateManager.Instance.State == State.InGame)
             {
-                if (Input.GetKey(KeyCode.W) )
+                if (pathCreator != null && _characterType == CharacterType.player)
+                {
+                    if (Input.GetKey(KeyCode.W))
+                    {
+                        distanceTravelled += speed * Time.deltaTime;
+                    }
+                    else if (Input.GetKey(KeyCode.S))
+                    {
+                        distanceTravelled -= speed * Time.deltaTime;
+                    }
+
+                    transform.position = pathCreator.path.GetPointAtDistance(distanceTravelled, endOfPathInstruction);
+                }
+                else
                 {
                     distanceTravelled += speed * Time.deltaTime;
-                }else if ( Input.GetKey(KeyCode.S))
-                {
-                     distanceTravelled -= speed * Time.deltaTime;
+                    transform.position = pathCreator.path.GetPointAtDistance(distanceTravelled, endOfPathInstruction);
                 }
-                
-                transform.position = pathCreator.path.GetPointAtDistance(distanceTravelled, endOfPathInstruction);
-            }else
-            {
-                distanceTravelled += speed * Time.deltaTime;
-                transform.position = pathCreator.path.GetPointAtDistance(distanceTravelled, endOfPathInstruction);
             }
+
         }
 
         // If the path changes during the game, update the distance travelled so that the follower's position on the new path

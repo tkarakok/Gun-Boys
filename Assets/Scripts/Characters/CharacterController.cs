@@ -9,6 +9,7 @@ public enum CharacterType
     player,
     enemy
 }
+
 public class CharacterController : MonoBehaviour
 {
     public CharacterType characterType;
@@ -41,7 +42,7 @@ public class CharacterController : MonoBehaviour
     }
 
     #region HEALTH BAR FUNCTIONS
-    
+
     /// <summary>
     /// if character take damage we calling this func and update helath bar on Player
     /// </summary>

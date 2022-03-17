@@ -34,7 +34,6 @@ public class BulletPoolManager : Singleton<BulletPoolManager>
     public GameObject GetBullet()
     {
         GameObject bullet = bulletPool.bulletsQueue.Dequeue();
-        bullet.transform.SetParent(null);
         bullet.SetActive(true);
         bulletPool.bulletsQueue.Enqueue(bullet);
         return bullet;
